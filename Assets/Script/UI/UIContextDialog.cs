@@ -10,14 +10,28 @@ public class UIContextDialog : MonoBehaviour
 
     public List<UIContextNode> nodeViewList;
 
+    public List<UIContextNode> selectNodeList;
+
     public GameObject nodeViewPrefab;
     public GameObject nodeSelectViewPrefab;
 
     [SerializeField]
     ContextNode viewContext;
 
-    void Start() {
-        CreateNode(ContextCategory.FindJob);
+
+    public Context context;
+
+    int selectIndex = -1;
+    int maxSelectIndex = 0;
+
+    private void Awake()
+    {
+        UIContextNode.contextDialog = this;
+    }
+
+    void Start()
+    {
+        CreateNode(ContextCategory.GuessJob);
     }
 
     public void CreateNode(ContextCategory _category)
@@ -25,21 +39,29 @@ public class UIContextDialog : MonoBehaviour
         viewContext = nodeList.Find(item => item.category == _category);
         GameObject g;
         UIContextNode node;
+
+        maxSelectIndex = -1;
+
         for (int i = 0; i < viewContext.fixContext.Count; ++i)
         {
+            ++maxSelectIndex;
+
             g = Instantiate(nodeViewPrefab, transform);
             node = g.GetComponent<UIContextNode>();
 
-            node.SetNode(viewContext.fixContext[i], false);
+            node.SetNode(maxSelectIndex, viewContext.fixContext[i], false);
 
             if (viewContext.selectContext[i] != ContextSelect.None)
             {
-                CreateSelectNode(viewContext.selectContext[i]);
+                ++maxSelectIndex;
+                CreateSelectNode(maxSelectIndex, viewContext.selectContext[i]);
             }
         }
+
+
     }
 
-    public void CreateSelectNode(ContextSelect _select)
+    public void CreateSelectNode(int _index, ContextSelect _select)
     {
         GameObject g;
         Transform group;
@@ -57,12 +79,38 @@ public class UIContextDialog : MonoBehaviour
         {
             g = Instantiate(nodeViewPrefab, group);
             node = g.GetComponent<UIContextNode>();
-            node.SetNode(selectContextList[i], false);
+            node.SetNode(_index, selectContextList[i], false);
         }
 
     }
 
+    public void AddSelectNode(UIContextNode _node)
+    {
+        if (selectIndex + 1 != _node.nodeIndex)
+            return;
 
+        ++selectIndex;
 
+        selectNodeList.Add(_node);
+        Debug.Log("select Node Adding");
+
+        if (maxSelectIndex == selectIndex)
+        {
+            Debug.Log("success context");
+            CreateContext();
+        }
+    }
+
+    public void CreateContext()
+    {
+        //TODO :: Context로 변환 하는 로직 구현
+        string say = "";
+        for (int i = 0; i < selectNodeList.Count; ++i)
+        {
+            say += selectNodeList[i].textData + " ";
+        }
+
+        print(say);
+    }
 
 }

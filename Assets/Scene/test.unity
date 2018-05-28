@@ -158,14 +158,38 @@ MonoBehaviour:
     id: 0
     context: 
     age: 10
+    liveSpace: 
+    kind:
+      tureth: 0
+      lie: 0
+      angel: 0
+      devil: 0
+      like: 0
+      hate: 0
   - name: "\uD48D\uC6D4\uB7C9"
     id: 0
     context: 
     age: 5
+    liveSpace: 
+    kind:
+      tureth: 0
+      lie: 0
+      angel: 0
+      devil: 0
+      like: 0
+      hate: 0
   - name: "\uB808\uBC14"
     id: 0
     context: 
     age: 20
+    liveSpace: 
+    kind:
+      tureth: 0
+      lie: 0
+      angel: 0
+      devil: 0
+      like: 0
+      hate: 0
   player: {fileID: 1545191574}
 --- !u!1 &146915393
 GameObject:
@@ -607,7 +631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &743572664
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1066,6 +1090,14 @@ MonoBehaviour:
     id: 0
     context: 
     age: 5
+    liveSpace: 
+    kind:
+      tureth: 0
+      lie: 0
+      angel: 0
+      devil: 0
+      like: 0
+      hate: 0
   job: 0
 --- !u!1 &1718195557
 GameObject:
@@ -1402,6 +1434,8 @@ GameObject:
   - component: {fileID: 2104589238}
   - component: {fileID: 2104589237}
   - component: {fileID: 2104589239}
+  - component: {fileID: 2104589240}
+  - component: {fileID: 2104589241}
   m_Layer: 5
   m_Name: VoteDialog
   m_TagString: Untagged
@@ -1425,7 +1459,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 800}
+  m_SizeDelta: {x: 100, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2104589237
 MonoBehaviour:
@@ -1472,14 +1506,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Left: 50
+    m_Right: 50
+    m_Top: 50
+    m_Bottom: 50
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 150, y: 150}
+  m_CellSize: {x: 0, y: 0}
   m_Spacing: {x: 20, y: 20}
   m_Constraint: 0
-  m_ConstraintCount: 4
+  m_ConstraintCount: 2
+--- !u!114 &2104589240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2104589235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87735fe2580ce2438d690495220d3c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  voteSlotPrefab: {fileID: 1313040169510902, guid: 9a59343f291de3c449cc29ce690ca082,
+    type: 2}
+  voteSlotList: []
+--- !u!114 &2104589241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2104589235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2

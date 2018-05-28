@@ -20,6 +20,10 @@ public class CharacterInfo
 
     public int age;
 
+    public string liveSpace;
+
+    public CharacterKind kind;
+
     public static string GetJobName(CharacterJob _job) {
         switch (_job) {
             case CharacterJob.Civilian:
