@@ -166,6 +166,10 @@ MonoBehaviour:
       devil: 0
       like: 0
       hate: 0
+    likeObject: []
+    hateObject: []
+    wellObject: []
+    notWellObject: []
   - name: "\uD48D\uC6D4\uB7C9"
     id: 0
     context: 
@@ -178,6 +182,10 @@ MonoBehaviour:
       devil: 0
       like: 0
       hate: 0
+    likeObject: []
+    hateObject: []
+    wellObject: []
+    notWellObject: []
   - name: "\uB808\uBC14"
     id: 0
     context: 
@@ -190,7 +198,20 @@ MonoBehaviour:
       devil: 0
       like: 0
       hate: 0
-  player: {fileID: 1545191574}
+    likeObject: []
+    hateObject: []
+    wellObject: []
+    notWellObject: []
+  characterList: []
+  player: {fileID: 0}
+  day: 0
+  isNight: 0
+  currentPlayerCount: 0
+  maxPlayerCount: 8
+  civilianCount: 0
+  mafiaCount: 0
+  policeCount: 0
+  doctorCount: 0
 --- !u!1 &146915393
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,11 +336,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 186821257}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -960.00006, y: -540.09515, z: 0}
+  m_LocalScale: {x: 3.0427895, y: 3.0427895, z: 3.0427895}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1718195561}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &244541263
@@ -631,7 +652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &743572664
 RectTransform:
   m_ObjectHideFlags: 0
@@ -694,42 +715,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea01aaaea49353644a52dedb3cbf9205, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nodeList:
-  - category: 0
-    fixContext:
-    - "\uB098\uB294"
-    - "\uC785\uB2C8\uB2E4."
-    selectContext: 0100000000000000
-  - category: 1
-    fixContext:
-    - "\uC81C \uB098\uC774\uB294"
-    - "\uC785\uB2C8\uB2E4."
-    selectContext: 0200000000000000
-  - category: 2
-    fixContext:
-    - "\uC81C \uC0DD\uAC01\uC5D0\uB294 "
-    - "(\uC774)\uAC00"
-    - "\uC778 \uAC83 \uAC19\uC2B5\uB2C8\uB2E4."
-    selectContext: 010000000300000000000000
-  - category: 3
-    fixContext:
-    - "\uC800\uB294"
-    - "\uACE0 \uC0DD\uAC01\uD569\uB2C8\uB2E4."
-    selectContext: 0400000000000000
-  - category: 4
-    fixContext:
-    - "\uB204\uAC00"
-    - "\uC77C \uAE4C\uC694?"
-    selectContext: 0300000000000000
+  nodeList: []
   nodeViewList: []
+  selectNodeList: []
   nodeViewPrefab: {fileID: 1159546914621374, guid: ebc3a32e4d44e9f49a0defb344ecd14e,
     type: 2}
   nodeSelectViewPrefab: {fileID: 1079202147059662, guid: 88782e3913306964991ee1407f2e3410,
     type: 2}
   viewContext:
     category: 0
-    fixContext: []
-    selectContext: 
+    contexts: []
+    selectContexts: []
+  context:
+    say: 
+    category: 0
+    isLIe: 0
+    like: 0
+    hate: 0
+    targetName: 
+    targetjob: 0
 --- !u!114 &743572668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1045,60 +1049,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1471266893}
---- !u!1 &1545191572
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1545191573}
-  - component: {fileID: 1545191574}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1545191573
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1545191572}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 320.18625, y: 84.66308, z: -1.8492563}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1545191574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1545191572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71f3334c70302314da51db511e3da6b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info:
-    name: "\uD48D\uC6D4\uB7C9"
-    id: 0
-    context: 
-    age: 5
-    liveSpace: 
-    kind:
-      tureth: 0
-      lie: 0
-      angel: 0
-      devil: 0
-      like: 0
-      hate: 0
-  job: 0
 --- !u!1 &1718195557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1138,7 @@ RectTransform:
   - {fileID: 2030808242}
   - {fileID: 743572664}
   - {fileID: 2104589236}
+  - {fileID: 186821260}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1544,3 +1495,124 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!1 &2132878687
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2132878688}
+  - component: {fileID: 2132878689}
+  m_Layer: 0
+  m_Name: CharacterDB
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2132878688
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2132878687}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 337.60022, y: 282.94666, z: -5.507623}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2132878689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2132878687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 221977341e5dfe342ae0be36a70f4665, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterList:
+  - name: 
+    id: 0
+    context: 
+    age: 0
+    liveSpace: 
+    kind:
+      tureth: 0
+      lie: 0
+      angel: 0
+      devil: 0
+      like: 0
+      hate: 0
+    likeObject: []
+    hateObject: []
+    wellObject: []
+    notWellObject: []
+  - name: 
+    id: 0
+    context: 
+    age: 0
+    liveSpace: 
+    kind:
+      tureth: 0
+      lie: 0
+      angel: 0
+      devil: 0
+      like: 0
+      hate: 0
+    likeObject: []
+    hateObject: []
+    wellObject: []
+    notWellObject: []
+  - name: 
+    id: 0
+    context: 
+    age: 0
+    liveSpace: 
+    kind:
+      tureth: 0
+      lie: 0
+      angel: 0
+      devil: 0
+      like: 0
+      hate: 0
+    likeObject: []
+    hateObject: []
+    wellObject: []
+    notWellObject: []
+  - name: 
+    id: 0
+    context: 
+    age: 0
+    liveSpace: 
+    kind:
+      tureth: 0
+      lie: 0
+      angel: 0
+      devil: 0
+      like: 0
+      hate: 0
+    likeObject: []
+    hateObject: []
+    wellObject: []
+    notWellObject: []
+  - name: 
+    id: 0
+    context: 
+    age: 0
+    liveSpace: 
+    kind:
+      tureth: 0
+      lie: 0
+      angel: 0
+      devil: 0
+      like: 0
+      hate: 0
+    likeObject: []
+    hateObject: []
+    wellObject: []
+    notWellObject: []

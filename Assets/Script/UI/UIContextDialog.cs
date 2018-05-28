@@ -42,33 +42,33 @@ public class UIContextDialog : MonoBehaviour
 
         maxSelectIndex = -1;
 
-        for (int i = 0; i < viewContext.fixContext.Count; ++i)
+        for (int i = 0; i < viewContext.contexts.Count; ++i)
         {
             ++maxSelectIndex;
 
             g = Instantiate(nodeViewPrefab, transform);
             node = g.GetComponent<UIContextNode>();
 
-            node.SetNode(maxSelectIndex, viewContext.fixContext[i], false);
+            node.SetNode(maxSelectIndex, viewContext.contexts[i], false);
 
-            if (viewContext.selectContext[i] != ContextSelect.None)
+            if (viewContext.selectContexts[i].selectCategory != ContextSelectCategory.None)
             {
                 ++maxSelectIndex;
-                CreateSelectNode(maxSelectIndex, viewContext.selectContext[i]);
+                CreateSelectNode(maxSelectIndex, viewContext.selectContexts[i].selectCategory);
             }
         }
 
 
     }
 
-    public void CreateSelectNode(int _index, ContextSelect _select)
+    public void CreateSelectNode(int _index, ContextSelectCategory _select)
     {
         GameObject g;
         Transform group;
         UIContextNode node;
 
         List<string> selectContextList = new List<string>();
-        selectContextList = ContextNode.FindContextList(_select);
+        selectContextList = ContextSelectNode.FindContextList(_select);
 
         if (selectContextList == null)
             return;
@@ -109,8 +109,7 @@ public class UIContextDialog : MonoBehaviour
         {
             say += selectNodeList[i].textData + " ";
         }
-
-        print(say);
+        
     }
 
 }
