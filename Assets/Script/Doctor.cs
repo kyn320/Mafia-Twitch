@@ -10,5 +10,9 @@ public class Doctor : CharacterBehaviour
         job = CharacterJob.Doctor;
     }
 
-
+    public override void JobWork()
+    {
+        print("doctor Work");
+        base.JobWork();
+    }
 }

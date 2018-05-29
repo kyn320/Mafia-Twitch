@@ -9,5 +9,11 @@ public class Police : CharacterBehaviour
         base.Start();
         job = CharacterJob.Police;
     }
-    
+
+    public override void JobWork()
+    {
+        print("police Work");
+        base.JobWork();
+    }
+
 }

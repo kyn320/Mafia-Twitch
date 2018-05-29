@@ -10,6 +10,7 @@ public class TalkManager : Singleton<TalkManager>
     /// </summary>
     public List<CharacterBehaviour> talkTopicQueue;
     public List<CharacterBehaviour> talkAnswerQueue;
+    public List<CharacterBehaviour> talkIntroduceQueue;
     /// <summary>
     /// 말하고 있는 주제
     /// </summary>
@@ -18,6 +19,8 @@ public class TalkManager : Singleton<TalkManager>
     /// 주제의 대한 현재 이야기
     /// </summary>
     public Context currentAnswer;
+
+    public TalkCategory talkCategory;
 
     public void AddTalkTopicQueue(CharacterBehaviour _character)
     {
@@ -39,13 +42,57 @@ public class TalkManager : Singleton<TalkManager>
         talkAnswerQueue.Remove(_character);
     }
 
-    public void SayTopic() {
+    public void SayTopic()
+    {
+        talkCategory = TalkCategory.Topic;
         currentTopic = talkTopicQueue[0].sayTopic;
+        talkTopicQueue[0].SayTopic();
         talkTopicQueue.RemoveAt(0);
     }
 
-    public void SayAnswer() {
+    public void SayAnswer()
+    {
+        talkCategory = TalkCategory.Answer;
         currentAnswer = talkAnswerQueue[0].sayAnswer;
+        talkAnswerQueue[0].SayAnswer();
         talkAnswerQueue.RemoveAt(0);
     }
+
+    public void SayIntroduce()
+    {
+        talkCategory = TalkCategory.Introduce;
+        talkIntroduceQueue[0].SayIntroduce();
+        talkIntroduceQueue.RemoveAt(0);
+    }
+
+    public void EndSay()
+    {
+        switch (talkCategory)
+        {
+            case TalkCategory.Topic:
+
+                break;
+            case TalkCategory.Answer:
+
+                break;
+            case TalkCategory.Introduce:
+                if (talkIntroduceQueue.Count < 1)
+                {
+                    GameManager.Instance.NextTime();
+                    talkCategory = TalkCategory.Topic;
+                }
+                else
+                    SayIntroduce();
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+public enum TalkCategory
+{
+    Topic,
+    Answer,
+    Introduce
 }

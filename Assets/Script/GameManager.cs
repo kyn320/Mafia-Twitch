@@ -9,9 +9,15 @@ public class GameManager : Singleton<GameManager>
 
     public List<CharacterBehaviour> characterList;
 
+    public List<CharacterBehaviour> nightWorkQueue;
+
+    public List<CharacterBehaviour> mafia;
+    public List<CharacterBehaviour> police;
+    public List<CharacterBehaviour> doctor;
+
     public CharacterBehaviour player;
 
-    public int day = 0;
+    public int day = -1;
     public bool isNight = false;
 
     public int currentPlayerCount = 0;
@@ -22,8 +28,10 @@ public class GameManager : Singleton<GameManager>
     public int policeCount = 0;
     public int doctorCount = 0;
 
-
     public float timer = 0;
+
+    public int nightWorkCount;
+    public int maxNightWorkCount;
 
     public void Awake()
     {
@@ -34,14 +42,153 @@ public class GameManager : Singleton<GameManager>
     {
         LoadPlayer();
         ++day;
-
         StartCoroutine(Test());
     }
 
     IEnumerator Test()
     {
         yield return null;
-        characterList[Random.Range(0, characterList.Count)].Say();
+        Introduce();
+    }
+
+    void Introduce()
+    {
+        for (int i = 0; i < characterList.Count; ++i)
+        {
+            characterList[i].AddIntroduce();
+        }
+
+        TalkManager.Instance.SayIntroduce();
+    }
+
+    public void NextDay()
+    {
+        ++day;
+        StartSunWork();
+    }
+
+    public void NextTime()
+    {
+        isNight = !isNight;
+        if (isNight)
+        {
+            //밤 시간대 액션 시작
+            StartNightWork();
+        }
+        else {
+            //밤 시간대 액션 결과 표시
+            //2분 토의 시간 시작
+            NextDay();
+        }
+    }
+
+    public void StartSunWork()
+    {
+
+    }
+
+    public void EndSunWork()
+    {
+
+    }
+
+    public void StartNightWork()
+    {
+        nightWorkCount = 0;
+        mafia = FindCharacterJob(CharacterJob.Mafia);
+        police = FindCharacterJob(CharacterJob.Police);
+        doctor = FindCharacterJob(CharacterJob.Doctor);
+
+        if (day < 2)
+        {
+            maxNightWorkCount = mafiaCount + policeCount;
+
+            for (int i = 0; i < mafia.Count; ++i)
+            {
+                nightWorkQueue.Add(mafia[i]);
+            }
+
+            for (int i = 0; i < police.Count; ++i)
+            {
+                nightWorkQueue.Add(police[i]);
+            }
+
+        }
+        else {
+            maxNightWorkCount = mafiaCount + policeCount + doctorCount;
+
+            for (int i = 0; i < mafia.Count; ++i)
+            {
+                nightWorkQueue.Add(mafia[i]);
+            }
+
+            for (int i = 0; i < police.Count; ++i)
+            {
+                nightWorkQueue.Add(police[i]);
+            }
+
+            for (int i = 0; i < doctor.Count; ++i)
+            {
+                nightWorkQueue.Add(doctor[i]);
+            }
+        }
+
+        //for (int i = 0; i < mafia.Count; ++i)
+        //{
+        //    mafia[i].JobWork();
+        //}
+
+        nightWorkQueue[0].JobWork();
+    }
+
+    public void EndNightWork()
+    {
+        nightWorkQueue.RemoveAt(0);
+
+        ++nightWorkCount;
+
+        if (nightWorkQueue.Count < 1)
+        {
+            NextTime();
+        }
+        else
+            nightWorkQueue[0].JobWork();
+
+        //if (day < 2)
+        //{
+        //    if (mafiaCount <= nightWorkCount)
+        //    {
+        //
+        //    }
+        //    else if (mafiaCount + policeCount <= nightWorkCount)
+        //    {
+        //
+        //    }
+        //}
+        //else {
+        //    if (mafiaCount <= nightWorkCount)
+        //    {
+        //
+        //    }
+        //    else if (mafiaCount + policeCount <= nightWorkCount)
+        //    {
+        //
+        //    }
+        //    else if (mafiaCount + policeCount + doctorCount <= nightWorkCount)
+        //    {
+        //
+        //    }
+        //}
+    }
+
+    public void StartVote()
+    {
+
+    }
+
+    public void EndVote()
+    {
+
     }
 
     private void Update()
@@ -53,7 +200,7 @@ public class GameManager : Singleton<GameManager>
     void LoadPlayer()
     {
         currentPlayerCount = maxPlayerCount;
-        CharacterBehaviour c;
+        CharacterBehaviour c = null;
         for (int i = 0; i < maxPlayerCount; ++i)
         {
             int rand = Random.Range(0, 4);
@@ -109,6 +256,8 @@ public class GameManager : Singleton<GameManager>
                 default:
                     break;
             }
+            if (i == 0)
+                player = c;
         }
 
     }
@@ -123,7 +272,7 @@ public class GameManager : Singleton<GameManager>
         {
             if ((!_isContainDie && !characterList[i].isDie) || _isContainDie)
             {
-                names.Add(characterList[i].openInfo.name);
+                names.Add(characterList[i].info.name);
             }
         }
 
@@ -138,11 +287,24 @@ public class GameManager : Singleton<GameManager>
         {
             if ((!_isContainDie && !characterList[i].isDie) || _isContainDie)
             {
-                spaces.Add(characterList[i].openInfo.liveSpace);
+                spaces.Add(characterList[i].info.liveSpace);
             }
         }
 
         return spaces;
+    }
+
+    public List<CharacterBehaviour> FindCharacterJob(CharacterJob _job)
+    {
+        List<CharacterBehaviour> resultList = new List<CharacterBehaviour>();
+
+        for (int i = 0; i < characterList.Count; ++i)
+        {
+            if (characterList[i].job == _job)
+                resultList.Add(characterList[i]);
+        }
+
+        return resultList;
     }
 
 

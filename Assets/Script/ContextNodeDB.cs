@@ -71,10 +71,10 @@ public class ContextNodeDB : Singleton<ContextNodeDB>
         return null;
     }
 
-    public Context GetRandomContext(ContextCategory _category)
+    public Context GetRandomContext(ContextCategory _category, CharacterInfo _info = null)
     {
         List<ContextNode> nodes = GetNodeList(_category);
         int rand = Random.Range(0, nodes.Count);
-        return nodes[rand].SetRandomContextwithCategory();
+        return nodes[rand].SetRandomContextwithCategory(_info);
     }
 }

@@ -15,7 +15,7 @@ public class ContextNode
     public List<string> contexts;
     public List<ContextSelectNode> selectContexts;
 
-    public Context SetRandomContextwithCategory()
+    public Context SetRandomContextwithCategory(CharacterInfo _info = null)
     {
         Context totalContext = new Context();
 
@@ -26,7 +26,7 @@ public class ContextNode
             if (selectContexts[i].selectCategory != ContextSelectCategory.None)
             {
                 ContextSelectNode selectNode = selectContexts[i];
-                selectNode.contexts = ContextSelectNode.FindContextList(selectContexts[i].selectCategory);
+                selectNode.contexts = ContextSelectNode.FindContextList(selectContexts[i].selectCategory, _info);
                 switch (selectNode.selectCategory)
                 {
                     case ContextSelectCategory.Name:

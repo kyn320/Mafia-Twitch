@@ -12,9 +12,12 @@ public class ContextSelectNode
 
     public List<string> contexts;
 
-    public static List<string> FindContextList(ContextSelectCategory _select)
+    public static List<string> FindContextList(ContextSelectCategory _select, CharacterInfo _info = null)
     {
         List<string> selectContextList = new List<string>();
+
+        if (_info == null)
+            _info = GameManager.Instance.player.info;
 
         switch (_select)
         {
@@ -23,7 +26,7 @@ public class ContextSelectNode
             case ContextSelectCategory.Age:
                 for (int i = -2; i < 3; ++i)
                 {
-                    selectContextList.Add((GameManager.Instance.player.info.age + i).ToString());
+                    selectContextList.Add((_info.age + i).ToString());
                 }
                 return selectContextList;
             case ContextSelectCategory.Job:

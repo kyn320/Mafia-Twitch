@@ -18,6 +18,7 @@ public class CharacterBehaviour : MonoBehaviour
 
     public Context sayTopic;
     public Context sayAnswer;
+    public List<Context> sayIntroduce = new List<Context>();
 
     protected virtual void Awake()
     {
@@ -35,12 +36,47 @@ public class CharacterBehaviour : MonoBehaviour
 
     public virtual void JobWork()
     {
+
+        GameManager.Instance.EndNightWork();
     }
 
-    public void Say()
+    public void AddTopic()
     {
         sayTopic = ContextNodeDB.Instance.GetRandomContext(ContextCategory.ThinkNameAndJob);
-        GameManager.Instance.ui.talkBox.Say(openInfo.name + " : " + sayTopic.say);
+        TalkManager.Instance.talkTopicQueue.Add(this);
+    }
+
+    public void SayTopic()
+    {
+        GameManager.Instance.ui.talkBox.Say(sayTopic.say);
+    }
+
+    public void AddAnswer()
+    {
+        sayAnswer = ContextNodeDB.Instance.GetRandomContext(ContextCategory.Answer);
+        TalkManager.Instance.talkAnswerQueue.Add(this);
+    }
+
+    public void SayAnswer()
+    {
+        GameManager.Instance.ui.talkBox.Say(sayAnswer.say);
+    }
+
+    public void AddIntroduce()
+    {
+        sayIntroduce.Add(ContextNodeDB.Instance.GetRandomContext(ContextCategory.IntroduceName, info));
+        sayIntroduce.Add(ContextNodeDB.Instance.GetRandomContext(ContextCategory.IntroduceAge, info));
+        TalkManager.Instance.talkIntroduceQueue.Add(this);
+    }
+
+    public void SayIntroduce()
+    {
+        List<string> sayList = new List<string>();
+        for (int i = 0; i < sayIntroduce.Count; ++i)
+        {
+            sayList.Add(sayIntroduce[i].say);
+        }
+        GameManager.Instance.ui.talkBox.Say(sayList);
     }
 
 }

@@ -11,4 +11,10 @@ public class Mafia : CharacterBehaviour
         job = CharacterJob.Mafia;
     }
 
+    public override void JobWork()
+    {
+        print("mafia work");
+        base.JobWork();
+    }
+
 }
