@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class UIVoteDialog : MonoBehaviour
 {
-    RectTransform recTr;
-
     public GameObject voteSlotPrefab;
 
     public List<UIVoteSlot> voteSlotList;
@@ -15,9 +13,8 @@ public class UIVoteDialog : MonoBehaviour
 
     private void Awake()
     {
-        recTr = GetComponent<RectTransform>();
         grid = GetComponent<GridLayoutGroup>();
-        Create(new List<string>() { "A", "B", "C", "D", "A", "B" });
+        Create(GameManager.Instance.GetCharacterNames(true));
     }
 
     void Create(List<string> voteNameList)

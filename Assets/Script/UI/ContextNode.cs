@@ -15,7 +15,35 @@ public class ContextNode
     public List<string> contexts;
     public List<ContextSelectNode> selectContexts;
 
+    public Context SetRandomContextwithCategory()
+    {
+        Context totalContext = new Context();
 
+        for (int i = 0; i < contexts.Count; ++i)
+        {
+            totalContext.say += contexts[i] + " ";
+
+            if (selectContexts[i].selectCategory != ContextSelectCategory.None)
+            {
+                ContextSelectNode selectNode = selectContexts[i];
+                selectNode.contexts = ContextSelectNode.FindContextList(selectContexts[i].selectCategory);
+                switch (selectNode.selectCategory)
+                {
+                    case ContextSelectCategory.Name:
+                        totalContext.targetName = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                        break;
+                    case ContextSelectCategory.Job:
+                        totalContext.targetjob = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                        break;
+                    default:
+                        break;
+                }
+                totalContext.say += selectNode.contexts[Random.Range(0, selectNode.contexts.Count)] + " ";
+            }
+        }
+
+        return totalContext;
+    }
 }
 
 public enum ContextCategory

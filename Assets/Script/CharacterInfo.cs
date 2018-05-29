@@ -28,31 +28,33 @@ public class CharacterInfo
     /// <summary>
     /// 성격
     /// </summary>
-    public CharacterKind kind;
+    public CharacterKind kind = new CharacterKind();
     /// <summary>
     /// 좋아하는 것
     /// </summary>
-    public List<string> likeObject;
+    public List<string> likeObjectList = new List<string>();
     /// <summary>
     /// 싫어하는 것
     /// </summary>
-    public List<string> hateObject;
+    public List<string> hateObjectList = new List<string>();
     /// <summary>
     /// 잘하는 것
     /// </summary>
-    public List<string> wellObject;
+    public List<string> wellObjectList = new List<string>();
     /// <summary>
     /// 못하는 것
     /// </summary>
-    public List<string> notWellObject;
+    public List<string> notWellObjectList = new List<string>();
 
     /// <summary>
     /// Job Enum을 String으로 변환합니다.
     /// </summary>
     /// <param name="_job"></param>
     /// <returns></returns>
-    public static string GetJobName(CharacterJob _job) {
-        switch (_job) {
+    public static string GetJobName(CharacterJob _job)
+    {
+        switch (_job)
+        {
             case CharacterJob.Civilian:
                 return "시민";
             case CharacterJob.Mafia:
@@ -63,6 +65,35 @@ public class CharacterInfo
                 return "의사";
         }
         return "";
+    }
+
+    public void SetRandomInfo()
+    {
+        name = CharacterDB.Instance.GetNameToUse();
+        age = Random.Range(18, 41);
+        liveSpace = CharacterDB.Instance.GetLiveSpace();
+
+        Dictionary<int, List<string>> likeAndHate = CharacterDB.Instance.GetLikeAndHateObjects(Random.Range(1, 4), Random.Range(1, 4));
+        Dictionary<int, List<string>> wellAndNotWell = CharacterDB.Instance.GetWellAndNotWellObjects(Random.Range(1, 4), Random.Range(1, 4));
+
+        likeObjectList = likeAndHate[1];
+        hateObjectList = likeAndHate[-1];
+
+        wellObjectList = wellAndNotWell[1];
+        notWellObjectList = wellAndNotWell[-1];
+    }
+
+    public void SetFakeInfo()
+    {
+        name = "?";
+        age = 0;
+        liveSpace = "?";
+
+        likeObjectList.Add("?");
+        hateObjectList.Add("?");
+
+        wellObjectList.Add("?");
+        notWellObjectList.Add("?");
     }
 
 }

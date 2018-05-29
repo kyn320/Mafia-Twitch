@@ -4,18 +4,11 @@ using UnityEngine;
 
 public class Mafia : CharacterBehaviour
 {
-    void Awake()
+    protected override void Start()
     {
+        base.Start();
+        
         job = CharacterJob.Mafia;
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

@@ -11,6 +11,8 @@ public class UIContextNode : MonoBehaviour, IPointerDownHandler
 
     public int nodeIndex = -1;
 
+    public int selectIndex = -1;
+
     public Text nodeText;
     public string textData;
 
@@ -19,6 +21,15 @@ public class UIContextNode : MonoBehaviour, IPointerDownHandler
     public void SetNode(int _index, string _context, bool _isSelect)
     {
         nodeIndex = _index;
+        selectIndex = -1;
+        nodeText.text = textData = _context;
+        isSelect = _isSelect;
+    }
+
+    public void SetSelectNode(int _index, int _selectIndex, string _context, bool _isSelect)
+    {
+        nodeIndex = _index;
+        selectIndex = _selectIndex;
         nodeText.text = textData = _context;
         isSelect = _isSelect;
     }
@@ -27,6 +38,6 @@ public class UIContextNode : MonoBehaviour, IPointerDownHandler
     {
         //Select Node
         contextDialog.AddSelectNode(this);
-        
+
     }
 }

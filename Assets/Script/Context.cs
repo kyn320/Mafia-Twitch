@@ -32,6 +32,6 @@ public class Context
     /// <summary>
     /// 지목된 직업
     /// </summary>
-    public CharacterJob targetjob;
+    public string targetjob;
 
 }

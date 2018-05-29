@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public List<CharacterInfo> characterInfoList;
+
+    public UIInGame ui;
+
     public List<CharacterBehaviour> characterList;
 
     public CharacterBehaviour player;
@@ -20,14 +22,38 @@ public class GameManager : Singleton<GameManager>
     public int policeCount = 0;
     public int doctorCount = 0;
 
+
+    public float timer = 0;
+
     public void Awake()
     {
+
+    }
+
+    private void Start()
+    {
         LoadPlayer();
+        ++day;
+
+        StartCoroutine(Test());
+    }
+
+    IEnumerator Test()
+    {
+        yield return null;
+        characterList[Random.Range(0, characterList.Count)].Say();
+    }
+
+    private void Update()
+    {
+        if (timer > 0)
+            timer -= Time.deltaTime;
     }
 
     void LoadPlayer()
     {
         currentPlayerCount = maxPlayerCount;
+        CharacterBehaviour c;
         for (int i = 0; i < maxPlayerCount; ++i)
         {
             int rand = Random.Range(0, 4);
@@ -35,68 +61,85 @@ public class GameManager : Singleton<GameManager>
             {
                 case 0:
                     ++civilianCount;
-                    new GameObject().AddComponent<Civilian>();
+                    c = new GameObject().AddComponent<Civilian>();
+                    characterList.Add(c);
                     break;
                 case 1:
                     if (mafiaCount > 1)
                     {
                         ++civilianCount;
-                        new GameObject().AddComponent<Civilian>();
+                        c = new GameObject().AddComponent<Civilian>();
+                        characterList.Add(c);
                     }
-                    else {
+                    else
+                    {
                         ++mafiaCount;
-                        new GameObject().AddComponent<Mafia>();
+                        c = new GameObject().AddComponent<Mafia>();
+                        characterList.Add(c);
                     }
                     break;
                 case 2:
                     if (policeCount > 0)
                     {
                         ++civilianCount;
-                        new GameObject().AddComponent<Civilian>();
+                        c = new GameObject().AddComponent<Civilian>();
+                        characterList.Add(c);
                     }
-                    else {
+                    else
+                    {
                         ++policeCount;
-                        new GameObject().AddComponent<Police>();
+                        c = new GameObject().AddComponent<Police>();
+                        characterList.Add(c);
                     }
                     break;
                 case 3:
                     if (doctorCount > 0)
                     {
                         ++civilianCount;
-                        new GameObject().AddComponent<Civilian>();
+                        c = new GameObject().AddComponent<Civilian>();
+                        characterList.Add(c);
                     }
-                    else {
+                    else
+                    {
                         ++doctorCount;
-                        new GameObject().AddComponent<Doctor>();
+                        c = new GameObject().AddComponent<Doctor>();
+                        characterList.Add(c);
                     }
                     break;
                 default:
                     break;
             }
         }
+
     }
 
 
 
-    public List<string> GetCharacterNames()
+    public List<string> GetCharacterNames(bool _isContainDie = false)
     {
         List<string> names = new List<string>();
 
-        for (int i = 0; i < characterInfoList.Count; ++i)
+        for (int i = 0; i < characterList.Count; ++i)
         {
-            names.Add(characterInfoList[i].name);
+            if ((!_isContainDie && !characterList[i].isDie) || _isContainDie)
+            {
+                names.Add(characterList[i].openInfo.name);
+            }
         }
 
         return names;
     }
 
-    public List<string> GetCharacterLiveSpaces()
+    public List<string> GetCharacterLiveSpaces(bool _isContainDie = false)
     {
         List<string> spaces = new List<string>();
 
-        for (int i = 0; i < characterInfoList.Count; ++i)
+        for (int i = 0; i < characterList.Count; ++i)
         {
-            spaces.Add(characterInfoList[i].liveSpace);
+            if ((!_isContainDie && !characterList[i].isDie) || _isContainDie)
+            {
+                spaces.Add(characterList[i].openInfo.liveSpace);
+            }
         }
 
         return spaces;
