@@ -7,15 +7,15 @@ public class GameManager : Singleton<GameManager>
 
     public UIInGame ui;
 
-    public List<CharacterBehaviour> characterList;
+    public List<PlayerController> characterList;
 
-    public List<CharacterBehaviour> nightWorkQueue;
+    public List<PlayerController> nightWorkQueue;
 
-    public List<CharacterBehaviour> mafia;
-    public List<CharacterBehaviour> police;
-    public List<CharacterBehaviour> doctor;
+    public List<PlayerController> mafia;
+    public List<PlayerController> police;
+    public List<PlayerController> doctor;
 
-    public CharacterBehaviour player;
+    public PlayerController player;
 
     public int day = -1;
     public bool isNight = false;
@@ -204,25 +204,23 @@ public class GameManager : Singleton<GameManager>
         for (int i = 0; i < maxPlayerCount; ++i)
         {
             int rand = Random.Range(0, 4);
+
             switch (rand)
             {
                 case 0:
                     ++civilianCount;
                     c = new GameObject().AddComponent<Civilian>();
-                    characterList.Add(c);
                     break;
                 case 1:
                     if (mafiaCount > 1)
                     {
                         ++civilianCount;
                         c = new GameObject().AddComponent<Civilian>();
-                        characterList.Add(c);
                     }
                     else
                     {
                         ++mafiaCount;
                         c = new GameObject().AddComponent<Mafia>();
-                        characterList.Add(c);
                     }
                     break;
                 case 2:
@@ -230,13 +228,11 @@ public class GameManager : Singleton<GameManager>
                     {
                         ++civilianCount;
                         c = new GameObject().AddComponent<Civilian>();
-                        characterList.Add(c);
                     }
                     else
                     {
                         ++policeCount;
                         c = new GameObject().AddComponent<Police>();
-                        characterList.Add(c);
                     }
                     break;
                 case 3:
@@ -244,25 +240,32 @@ public class GameManager : Singleton<GameManager>
                     {
                         ++civilianCount;
                         c = new GameObject().AddComponent<Civilian>();
-                        characterList.Add(c);
                     }
                     else
                     {
                         ++doctorCount;
                         c = new GameObject().AddComponent<Doctor>();
-                        characterList.Add(c);
                     }
                     break;
                 default:
                     break;
             }
             if (i == 0)
-                player = c;
+            {
+                characterList.Add(c.gameObject.AddComponent<PlayerAI>());
+                //player = c.gameObject.AddComponent<PlayerController>();
+            }
+            else {
+               characterList.Add(c.gameObject.AddComponent<PlayerAI>());
+            }
+            
         }
 
     }
 
-
+    public CharacterBehaviour FindCharacterWithName(string _name) {
+        return characterList.Find(item => item.character.info.name == _name).character;
+    }
 
     public List<string> GetCharacterNames(bool _isContainDie = false)
     {
@@ -270,9 +273,24 @@ public class GameManager : Singleton<GameManager>
 
         for (int i = 0; i < characterList.Count; ++i)
         {
-            if ((!_isContainDie && !characterList[i].isDie) || _isContainDie)
+            if ((!_isContainDie && !characterList[i].character.isDie) || _isContainDie)
             {
-                names.Add(characterList[i].info.name);
+                names.Add(characterList[i].character.info.name);
+            }
+        }
+
+        return names;
+    }
+
+    public List<string> GetCharacterFakeNames(bool _isContainDie = false)
+    {
+        List<string> names = new List<string>();
+
+        for (int i = 0; i < characterList.Count; ++i)
+        {
+            if ((!_isContainDie && !characterList[i].character.isDie) || _isContainDie)
+            {
+                names.Add(characterList[i].character.openInfo.name);
             }
         }
 
@@ -285,22 +303,22 @@ public class GameManager : Singleton<GameManager>
 
         for (int i = 0; i < characterList.Count; ++i)
         {
-            if ((!_isContainDie && !characterList[i].isDie) || _isContainDie)
+            if ((!_isContainDie && !characterList[i].character.isDie) || _isContainDie)
             {
-                spaces.Add(characterList[i].info.liveSpace);
+                spaces.Add(characterList[i].character.info.liveSpace);
             }
         }
 
         return spaces;
     }
 
-    public List<CharacterBehaviour> FindCharacterJob(CharacterJob _job)
+    public List<PlayerController> FindCharacterJob(CharacterJob _job)
     {
-        List<CharacterBehaviour> resultList = new List<CharacterBehaviour>();
+        List<PlayerController> resultList = new List<PlayerController>();
 
         for (int i = 0; i < characterList.Count; ++i)
         {
-            if (characterList[i].job == _job)
+            if (characterList[i].character.job == _job)
                 resultList.Add(characterList[i]);
         }
 

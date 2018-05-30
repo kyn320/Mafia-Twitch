@@ -33,5 +33,8 @@ public class Context
     /// 지목된 직업
     /// </summary>
     public string targetjob;
-
+    /// <summary>
+    /// 선택한 내용
+    /// </summary>
+    public List<string> selectData = new List<string>();
 }

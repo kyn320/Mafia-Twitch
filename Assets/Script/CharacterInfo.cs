@@ -81,6 +81,8 @@ public class CharacterInfo
 
         wellObjectList = wellAndNotWell[1];
         notWellObjectList = wellAndNotWell[-1];
+
+        kind.SetRandom();
     }
 
     public void SetFakeInfo()
@@ -94,6 +96,8 @@ public class CharacterInfo
 
         wellObjectList.Add("?");
         notWellObjectList.Add("?");
+        
+        kind.SetRandom();
     }
 
 }

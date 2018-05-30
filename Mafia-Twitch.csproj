@@ -234,6 +234,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\AIManager.cs" />
     <Compile Include="Assets\Script\CharacterBehaviour.cs" />
     <Compile Include="Assets\Script\CharacterDB.cs" />
     <Compile Include="Assets\Script\CharacterInfo.cs" />

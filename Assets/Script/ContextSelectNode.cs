@@ -17,7 +17,7 @@ public class ContextSelectNode
         List<string> selectContextList = new List<string>();
 
         if (_info == null)
-            _info = GameManager.Instance.player.info;
+            _info = GameManager.Instance.player.character.info;
 
         switch (_select)
         {

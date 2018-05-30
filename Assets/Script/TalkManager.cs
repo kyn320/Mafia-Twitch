@@ -46,7 +46,7 @@ public class TalkManager : Singleton<TalkManager>
     {
         talkCategory = TalkCategory.Topic;
         currentTopic = talkTopicQueue[0].sayTopic;
-        talkTopicQueue[0].SayTopic();
+        talkTopicQueue[0].controller.SayTopic();
         talkTopicQueue.RemoveAt(0);
     }
 
@@ -54,14 +54,14 @@ public class TalkManager : Singleton<TalkManager>
     {
         talkCategory = TalkCategory.Answer;
         currentAnswer = talkAnswerQueue[0].sayAnswer;
-        talkAnswerQueue[0].SayAnswer();
+        talkAnswerQueue[0].controller.SayAnswer();
         talkAnswerQueue.RemoveAt(0);
     }
 
     public void SayIntroduce()
     {
         talkCategory = TalkCategory.Introduce;
-        talkIntroduceQueue[0].SayIntroduce();
+        talkIntroduceQueue[0].controller.SayIntroduce();
         talkIntroduceQueue.RemoveAt(0);
     }
 

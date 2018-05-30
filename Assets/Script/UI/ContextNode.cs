@@ -19,6 +19,8 @@ public class ContextNode
     {
         Context totalContext = new Context();
 
+        totalContext.category = category;
+
         for (int i = 0; i < contexts.Count; ++i)
         {
             totalContext.say += contexts[i] + " ";
@@ -27,18 +29,35 @@ public class ContextNode
             {
                 ContextSelectNode selectNode = selectContexts[i];
                 selectNode.contexts = ContextSelectNode.FindContextList(selectContexts[i].selectCategory, _info);
+                string selectStr = "";
                 switch (selectNode.selectCategory)
                 {
                     case ContextSelectCategory.Name:
-                        totalContext.targetName = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                        if (category.Equals(ContextCategory.IntroduceName))
+                        {
+                            if (Random.Range(0, 11) <= 10 - _info.kind.lie)
+                            {
+                                totalContext.targetName = selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                                totalContext.isLIe = true;
+                            }
+                            else {
+                                totalContext.targetName = selectStr = _info.name;
+                            }
+                        }
+                        else {
+                            totalContext.targetName = selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                        }
                         break;
                     case ContextSelectCategory.Job:
-                        totalContext.targetjob = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                        totalContext.targetjob = selectStr  = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
                         break;
                     default:
+                        selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
                         break;
                 }
-                totalContext.say += selectNode.contexts[Random.Range(0, selectNode.contexts.Count)] + " ";
+                
+                totalContext.selectData.Add(selectStr);
+                totalContext.say += selectStr + " ";
             }
         }
 
