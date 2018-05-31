@@ -7,4 +7,6 @@ public class UIInGame : MonoBehaviour {
 
     public UITalkBox talkBox;
 
+    public GameObject nameLabelPrefab;
+
 }

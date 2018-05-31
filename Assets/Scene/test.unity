@@ -549,19 +549,23 @@ MonoBehaviour:
   currentTopic:
     say: 
     category: 0
-    isLIe: 0
+    isTrueth: 1
     like: 0
     hate: 0
-    targetName: 
-    targetjob: 
+    sayCharacter: {fileID: 0}
+    target: {fileID: 0}
+    targetjob: 0
+    selectData: []
   currentAnswer:
     say: 
     category: 0
-    isLIe: 0
+    isTrueth: 1
     like: 0
     hate: 0
-    targetName: 
-    targetjob: 
+    sayCharacter: {fileID: 0}
+    target: {fileID: 0}
+    targetjob: 0
+    selectData: []
   talkCategory: 0
 --- !u!4 &379859273
 Transform:
@@ -888,11 +892,13 @@ MonoBehaviour:
   context:
     say: 
     category: 0
-    isLIe: 0
+    isTrueth: 1
     like: 0
     hate: 0
-    targetName: 
-    targetjob: 
+    sayCharacter: {fileID: 0}
+    target: {fileID: 0}
+    targetjob: 0
+    selectData: []
 --- !u!114 &743572668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1076,7 +1082,7 @@ MonoBehaviour:
     - selectCategory: 0
       contexts: []
   IntroduceAge:
-  - category: 0
+  - category: 1
     contexts:
     - "\uC81C \uB098\uC774\uB294"
     - "\uC138 \uC785\uB2C8\uB2E4."

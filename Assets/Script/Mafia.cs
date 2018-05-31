@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Mafia : CharacterBehaviour
 {
+    public CharacterBehaviour killTarget;
+
     protected override void Start()
     {
         base.Start();
-
         job = CharacterJob.Mafia;
     }
 

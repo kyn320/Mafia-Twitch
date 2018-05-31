@@ -32,7 +32,7 @@ public class ContextSelectNode
             case ContextSelectCategory.Job:
                 for (int i = 0; i < 4; ++i)
                 {
-                    selectContextList.Add(CharacterInfo.GetJobName((CharacterJob)i));
+                    selectContextList.Add(CharacterInfo.ParseJobToName((CharacterJob)i));
                 }
                 return selectContextList;
             case ContextSelectCategory.LiveSpace:

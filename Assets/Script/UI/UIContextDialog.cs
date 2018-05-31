@@ -7,7 +7,7 @@ public class UIContextDialog : MonoBehaviour
 {
 
     public List<ContextNode> nodeList;
-    
+
     public List<UIContextNode> selectNodeList;
 
     public GameObject nodeViewPrefab;
@@ -138,18 +138,27 @@ public class UIContextDialog : MonoBehaviour
         //Context의 타겟 이름과, 타겟 직업을 적용
         for (int i = 0; i < viewContext.selectContexts.Count; ++i)
         {
+            string selectStr = "";
             ContextSelectNode selectNode = viewContext.selectContexts[i];
+
+            if (selectNode.selectCategory == ContextSelectCategory.None)
+                continue;
+
             switch (selectNode.selectCategory)
             {
                 case ContextSelectCategory.Name:
-                    totalContext.targetName = selectNode.contexts[selector[i]];
+                    selectStr = selectNode.contexts[selector[i]];
+                    totalContext.target = GameManager.Instance.FindCharacterWithFakeName(selectStr);
                     break;
                 case ContextSelectCategory.Job:
-                    totalContext.targetjob = selectNode.contexts[selector[i]];
+                    selectStr = selectNode.contexts[selector[i]];
+                    totalContext.targetjob = CharacterInfo.PareseNameToJob(selectStr);
                     break;
                 default:
+                    selectStr = selectNode.contexts[selector[i]];
                     break;
             }
+            totalContext.selectData.Add(selectStr);
         }
 
         context = totalContext;

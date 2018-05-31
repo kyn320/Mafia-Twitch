@@ -18,7 +18,6 @@ public class ContextNode
     public Context SetRandomContextwithCategory(CharacterInfo _info = null)
     {
         Context totalContext = new Context();
-
         totalContext.category = category;
 
         for (int i = 0; i < contexts.Count; ++i)
@@ -37,25 +36,29 @@ public class ContextNode
                         {
                             if (Random.Range(0, 11) <= 10 - _info.kind.lie)
                             {
-                                totalContext.targetName = selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
-                                totalContext.isLIe = true;
+                                selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                                totalContext.isTrueth = false;
                             }
-                            else {
-                                totalContext.targetName = selectStr = _info.name;
+                            else
+                            {
+                                selectStr = _info.name;
                             }
                         }
-                        else {
-                            totalContext.targetName = selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                        else
+                        {
+                            selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                            totalContext.target = GameManager.Instance.FindCharacterWithFakeName(selectStr);
                         }
                         break;
                     case ContextSelectCategory.Job:
-                        totalContext.targetjob = selectStr  = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                        selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+                        totalContext.targetjob = CharacterInfo.PareseNameToJob(selectStr);
                         break;
                     default:
                         selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
                         break;
                 }
-                
+
                 totalContext.selectData.Add(selectStr);
                 totalContext.say += selectStr + " ";
             }

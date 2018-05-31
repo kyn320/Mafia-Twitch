@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-
     public UIInGame ui;
 
     public List<PlayerController> characterList;
@@ -250,6 +249,9 @@ public class GameManager : Singleton<GameManager>
                 default:
                     break;
             }
+
+            c.nameLabel = Instantiate(ui.nameLabelPrefab).GetComponent<UINameLabel>();
+
             if (i == 0)
             {
                 characterList.Add(c.gameObject.AddComponent<PlayerAI>());
@@ -258,13 +260,18 @@ public class GameManager : Singleton<GameManager>
             else {
                characterList.Add(c.gameObject.AddComponent<PlayerAI>());
             }
-            
+
         }
 
     }
 
     public CharacterBehaviour FindCharacterWithName(string _name) {
         return characterList.Find(item => item.character.info.name == _name).character;
+    }
+
+    public CharacterBehaviour FindCharacterWithFakeName(string _name)
+    {
+        return characterList.Find(item => item.character.openInfo.name == _name).character;
     }
 
     public List<string> GetCharacterNames(bool _isContainDie = false)

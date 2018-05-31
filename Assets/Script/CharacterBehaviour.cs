@@ -19,11 +19,16 @@ public class CharacterBehaviour : MonoBehaviour
     public Context sayAnswer;
     public List<Context> sayIntroduce = new List<Context>();
 
+    SpriteRenderer spriteRenderer;
     public PlayerController controller;
+
+    public UINameLabel nameLabel;
 
     protected virtual void Awake()
     {
         controller = GetComponent<PlayerController>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
     }
 
     protected virtual void Start()
@@ -39,5 +44,5 @@ public class CharacterBehaviour : MonoBehaviour
     {
         GameManager.Instance.EndNightWork();
     }
-    
+
 }

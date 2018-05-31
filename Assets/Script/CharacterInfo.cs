@@ -51,7 +51,7 @@ public class CharacterInfo
     /// </summary>
     /// <param name="_job"></param>
     /// <returns></returns>
-    public static string GetJobName(CharacterJob _job)
+    public static string ParseJobToName(CharacterJob _job)
     {
         switch (_job)
         {
@@ -65,6 +65,36 @@ public class CharacterInfo
                 return "의사";
         }
         return "";
+    }
+
+    public static CharacterJob PareseNameToJob(string _name)
+    {
+        if (_name == "시민")
+        {
+            return CharacterJob.Civilian;
+        }
+
+        if (_name == "마피아")
+        {
+            return CharacterJob.Mafia;
+        }
+
+        if (_name == "경찰")
+        {
+            return CharacterJob.Police;
+        }
+
+        if (_name == "의사")
+        {
+            return CharacterJob.Doctor;
+        }
+
+        return CharacterJob.Civilian;
+    }
+
+    public static CharacterJob GetRandomJob()
+    {
+        return (CharacterJob)Random.Range(0, 4);
     }
 
     public void SetRandomInfo()
@@ -96,14 +126,14 @@ public class CharacterInfo
 
         wellObjectList.Add("?");
         notWellObjectList.Add("?");
-        
+
         kind.SetRandom();
     }
-
 }
 
 public enum CharacterJob
 {
+    None,
     Civilian,
     Mafia,
     Police,

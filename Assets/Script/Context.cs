@@ -14,9 +14,9 @@ public class Context
     /// </summary>
     public ContextCategory category;
     /// <summary>
-    /// 거짓말 인가?
+    /// 사실 인가?
     /// </summary>
-    public bool isLIe = false;
+    public bool isTrueth = true;
     /// <summary>
     /// 긍정적 수치
     /// </summary>
@@ -26,13 +26,17 @@ public class Context
     /// </summary>
     public int hate;
     /// <summary>
-    /// 지목된 이름
+    /// 말하는 대상
     /// </summary>
-    public string targetName;
+    public CharacterBehaviour sayCharacter;
+    /// <summary>
+    /// 지목된 대상
+    /// </summary>
+    public CharacterBehaviour target;
     /// <summary>
     /// 지목된 직업
     /// </summary>
-    public string targetjob;
+    public CharacterJob targetjob;
     /// <summary>
     /// 선택한 내용
     /// </summary>
