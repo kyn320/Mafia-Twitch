@@ -36,7 +36,10 @@ public class ContextNode
                         {
                             if (Random.Range(0, 11) <= 10 - _info.kind.lie)
                             {
-                                selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+
+                                    selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
+ 
+
                                 totalContext.isTrueth = false;
                             }
                             else

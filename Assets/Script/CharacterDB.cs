@@ -23,9 +23,13 @@ public class CharacterDB : Singleton<CharacterDB>
     /// </summary>
     public List<string> wellAndNotWellObjectList;
 
+    public List<Sprite> characterSpriteList;
+    private List<int> useSpriteIndex = new List<int>();
+
     private void Awake()
     {
         ReSetUseNameIndex();
+        ReSetUseSpriteIndex();
     }
 
     void ReSetUseNameIndex()
@@ -34,6 +38,23 @@ public class CharacterDB : Singleton<CharacterDB>
         {
             useNameIndex.Add(i);
         }
+    }
+
+    void ReSetUseSpriteIndex()
+    {
+        for (int i = 0; i < characterSpriteList.Count; ++i)
+        {
+            useSpriteIndex.Add(i);
+        }
+    }
+
+    public Sprite GetRandomSprite()
+    {
+        int rand = Random.Range(0, useSpriteIndex.Count);
+        int index = useSpriteIndex[rand];
+        useSpriteIndex.RemoveAt(rand);
+
+        return characterSpriteList[index];
     }
 
     public string GetNameToUse()

@@ -250,7 +250,9 @@ public class GameManager : Singleton<GameManager>
                     break;
             }
 
-            c.nameLabel = Instantiate(ui.nameLabelPrefab).GetComponent<UINameLabel>();
+            c.transform.position = Vector3.right * i + Vector3.up * 0.1f;
+
+            c.nameLabel = ui.CreateNameLabel(c);
 
             if (i == 0)
             {
@@ -260,7 +262,6 @@ public class GameManager : Singleton<GameManager>
             else {
                characterList.Add(c.gameObject.AddComponent<PlayerAI>());
             }
-
         }
 
     }

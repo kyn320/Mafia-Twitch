@@ -226,7 +226,7 @@ Prefab:
     - target: {fileID: 224511878674116832, guid: 17a3e7c7a5f64dc478dd982186a3f35d,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -235
+      value: -250
       objectReference: {fileID: 0}
     - target: {fileID: 224511878674116832, guid: 17a3e7c7a5f64dc478dd982186a3f35d,
         type: 2}
@@ -986,7 +986,7 @@ Camera:
   far clip plane: 100
   field of view: 60
   orthographic: 1
-  orthographic size: 2
+  orthographic size: 2.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1009,7 +1009,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 938410048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 3.5, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1526,6 +1526,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   talkBox: {fileID: 1058373989}
+  nameLabelPrefab: {fileID: 1952726153773432, guid: 0430e0506315c2e4e96de83d435d9323,
+    type: 2}
 --- !u!1 &1755586585
 GameObject:
   m_ObjectHideFlags: 0
@@ -1952,3 +1954,16 @@ MonoBehaviour:
   - "\uACF5\uBD80"
   - "\uD574\uBD80"
   - "\uC124\uB4DD"
+  characterSpriteList:
+  - {fileID: 21300000, guid: 6492ae7ad76f42f4d9895a259f663a02, type: 3}
+  - {fileID: 21300000, guid: 5ef1842b05a103c4da3dab9bdb0ea9d6, type: 3}
+  - {fileID: 21300000, guid: 6a0dc3d669903684185f32be9740d5fb, type: 3}
+  - {fileID: 21300000, guid: 5b082fe9a3ec275468fb7eab800d18c4, type: 3}
+  - {fileID: 21300000, guid: 410d169badbe4784f86c1caf24d2989d, type: 3}
+  - {fileID: 21300000, guid: 7269d6382b549e243b7995bce431d07b, type: 3}
+  - {fileID: 21300000, guid: 7e40bba9089ab77469c3aca6088b92ec, type: 3}
+  - {fileID: 21300000, guid: 06398f7faf9015e4298fd9a9a9b5a06d, type: 3}
+  - {fileID: 21300000, guid: d36e6bcd485513d498944a2c2a837c0a, type: 3}
+  - {fileID: 21300000, guid: c689ea3b4bd20de46a18e02ae71723d9, type: 3}
+  - {fileID: 21300000, guid: be5c5f638c1b9be4cad553c2b4587444, type: 3}
+  - {fileID: 21300000, guid: 80cc190d7e1db624e8eb11c5a464db8a, type: 3}

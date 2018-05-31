@@ -27,8 +27,9 @@ public class CharacterBehaviour : MonoBehaviour
     protected virtual void Awake()
     {
         controller = GetComponent<PlayerController>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        
+        spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
+
+        spriteRenderer.sprite = CharacterDB.Instance.GetRandomSprite();
     }
 
     protected virtual void Start()
@@ -37,7 +38,6 @@ public class CharacterBehaviour : MonoBehaviour
         info.SetRandomInfo();
         openInfo = new CharacterInfo();
         openInfo.SetFakeInfo();
-
     }
 
     public virtual void JobWork()

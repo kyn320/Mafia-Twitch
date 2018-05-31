@@ -122,6 +122,7 @@ public class PlayerAI : PlayerController
             AIManager.Instance.ThinkAI(character.sayIntroduce[i]);
             sayList.Add(character.sayIntroduce[i].say);
         }
+        character.nameLabel.SetName(character.openInfo.name);
         GameManager.Instance.ui.talkBox.Say(sayList);
     }
 
@@ -244,11 +245,6 @@ public class PlayerAI : PlayerController
             case ContextCategory.ShareNameAndJob:
                 break;
         }
-    }
-
-    public void ThinkResultLie(Context _context, ThinkCharacter _sayCharacter = null, ThinkCharacter _target = null)
-    {
-
     }
 
     public ThinkCharacter FindCharacter(CharacterBehaviour _character)

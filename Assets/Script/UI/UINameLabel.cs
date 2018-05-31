@@ -8,6 +8,13 @@ public class UINameLabel : MonoBehaviour
     public Transform target;
     public Text nameText;
 
+    public Vector3 margin;
+
+    void Update() {
+
+        transform.position = Camera.main.WorldToScreenPoint(target.position + margin);
+    }
+
     public void SetCharacter(CharacterBehaviour _character, string _name)
     {
         target = _character.transform;
