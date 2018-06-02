@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
         character.JobWork();
     }
 
+    public virtual void Vote() {
+
+    }
+
     public virtual void AddTopic()
     {
 

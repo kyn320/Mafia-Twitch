@@ -46,6 +46,8 @@ public class TalkManager : Singleton<TalkManager>
     {
         talkCategory = TalkCategory.Topic;
         currentTopic = talkTopicQueue[0].sayTopic;
+        if (currentTopic.category == ContextCategory.ShareNameAndJob)
+            talkCategory = TalkCategory.Share;
         talkTopicQueue[0].controller.SayTopic();
         talkTopicQueue.RemoveAt(0);
     }
@@ -70,7 +72,17 @@ public class TalkManager : Singleton<TalkManager>
         switch (talkCategory)
         {
             case TalkCategory.Topic:
-
+                //answers
+                if (talkTopicQueue.Count < 1)
+                {
+                    //vote Time
+                    GameManager.Instance.StartVote();
+                }
+                else
+                    SayTopic();
+                break;
+            case TalkCategory.Share:
+                SayTopic();
                 break;
             case TalkCategory.Answer:
 
@@ -93,6 +105,7 @@ public class TalkManager : Singleton<TalkManager>
 public enum TalkCategory
 {
     Topic,
+    Share,
     Answer,
     Introduce
 }

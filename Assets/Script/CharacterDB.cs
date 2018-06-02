@@ -8,8 +8,8 @@ public class CharacterDB : Singleton<CharacterDB>
     /// 이름 리스트
     /// </summary>
     public List<string> nameList;
-
     private List<int> useNameIndex = new List<int>();
+    private List<string> useFakeNameList = new List<string>();
     /// <summary>
     /// 사는 곳 리스트
     /// </summary>
@@ -147,4 +147,16 @@ public class CharacterDB : Singleton<CharacterDB>
         return dic;
     }
 
+    public void AddUseFakeName(string _fakeName)
+    {
+        useFakeNameList.Add(_fakeName);
+    }
+
+    public bool CheckUseFakeName(string _fakeName)
+    {
+        string result = useFakeNameList.Find(item => item == _fakeName); 
+        return (result != null);
+    }
+
+   
 }

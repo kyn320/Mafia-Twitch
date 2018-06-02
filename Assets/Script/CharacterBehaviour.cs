@@ -14,7 +14,10 @@ public class CharacterBehaviour : MonoBehaviour
     /// 사망 했는가?
     /// </summary>
     public bool isDie = false;
-
+    /// <summary>
+    /// 받은 투표 수 
+    /// </summary>
+    public int voteCount = 0;
     public Context sayTopic;
     public Context sayAnswer;
     public List<Context> sayIntroduce = new List<Context>();
@@ -43,6 +46,40 @@ public class CharacterBehaviour : MonoBehaviour
     public virtual void JobWork()
     {
         GameManager.Instance.EndNightWork();
+    }
+
+    public void AddVote()
+    {
+        ++voteCount;
+        GameManager.Instance.EndVote();
+    }
+
+    public void Kill()
+    {
+        isDie = true;
+        spriteRenderer.color = Color.red;
+        --GameManager.Instance.currentPlayerCount;
+    }
+
+    public void Heal()
+    {
+        if (isDie)
+        {
+            print("heal success : " + info.name);
+            isDie = false;
+            spriteRenderer.color = Color.white;
+            ++GameManager.Instance.currentPlayerCount;
+        }
+        else
+        {
+            print("heal fail");
+        }
+
+    }
+
+    public void SetTruethInfo()
+    {
+        openInfo = info;
     }
 
 }

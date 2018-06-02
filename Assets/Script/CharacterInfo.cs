@@ -63,6 +63,9 @@ public class CharacterInfo
                 return "경찰";
             case CharacterJob.Doctor:
                 return "의사";
+            default:
+                Debug.LogError("is not job");
+                break;
         }
         return "";
     }
@@ -94,7 +97,7 @@ public class CharacterInfo
 
     public static CharacterJob GetRandomJob()
     {
-        return (CharacterJob)Random.Range(0, 4);
+        return (CharacterJob)Random.Range(1, 4);
     }
 
     public void SetRandomInfo()

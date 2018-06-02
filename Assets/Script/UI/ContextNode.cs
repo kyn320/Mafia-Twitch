@@ -31,20 +31,33 @@ public class ContextNode
                 string selectStr = "";
                 switch (selectNode.selectCategory)
                 {
-                    case ContextSelectCategory.Name:
+                    case ContextSelectCategory.AllName:
+                    case ContextSelectCategory.AliveName:
                         if (category.Equals(ContextCategory.IntroduceName))
                         {
                             if (Random.Range(0, 11) <= 10 - _info.kind.lie)
                             {
-
+                                int loop = 0;
+                                do
+                                {
                                     selectStr = selectNode.contexts[Random.Range(0, selectNode.contexts.Count)];
- 
+                                    ++loop;
 
+                                    if (loop > 30)
+                                    {
+                                        Debug.Log("loopOver");
+                                        break;
+                                    }
+
+                                } while (CharacterDB.Instance.CheckUseFakeName(selectStr));
+
+                                CharacterDB.Instance.AddUseFakeName(selectStr);
                                 totalContext.isTrueth = false;
                             }
                             else
                             {
                                 selectStr = _info.name;
+                                CharacterDB.Instance.AddUseFakeName(selectStr);
                             }
                         }
                         else
@@ -98,7 +111,9 @@ public enum ContextCategory
 public enum ContextSelectCategory
 {
     None,
-    Name,
+    AllName,
+    AllCharactersName,
+    AliveName,
     Age,
     Job,
     LiveSpace,

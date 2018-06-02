@@ -29,6 +29,8 @@ public class GameManager : Singleton<GameManager>
 
     public float timer = 0;
 
+    public int voteCount = 0;
+
     public int nightWorkCount;
     public int maxNightWorkCount;
 
@@ -74,7 +76,8 @@ public class GameManager : Singleton<GameManager>
             //밤 시간대 액션 시작
             StartNightWork();
         }
-        else {
+        else
+        {
             //밤 시간대 액션 결과 표시
             //2분 토의 시간 시작
             NextDay();
@@ -83,7 +86,19 @@ public class GameManager : Singleton<GameManager>
 
     public void StartSunWork()
     {
+        List<int> useIndex = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7 };
+        for (int i = 0; i < 8; ++i)
+        {
+            int getIndex = Random.Range(0, useIndex.Count);
 
+            if (!characterList[useIndex[getIndex]].character.isDie)
+                characterList[useIndex[getIndex]].AddTopic();
+
+
+            useIndex.RemoveAt(getIndex);
+        }
+
+        TalkManager.Instance.SayTopic();
     }
 
     public void EndSunWork()
@@ -113,7 +128,8 @@ public class GameManager : Singleton<GameManager>
             }
 
         }
-        else {
+        else
+        {
             maxNightWorkCount = mafiaCount + policeCount + doctorCount;
 
             for (int i = 0; i < mafia.Count; ++i)
@@ -182,11 +198,47 @@ public class GameManager : Singleton<GameManager>
 
     public void StartVote()
     {
-
+        for (int i = 0; i < characterList.Count; ++i)
+        {
+            characterList[i].Vote();
+        }
     }
 
     public void EndVote()
     {
+        ++voteCount;
+        //TODO :: UI VoteCount Update
+        if (voteCount == currentPlayerCount)
+        {
+            voteCount = 0;
+            print("kill");
+            //TODO :: KILL
+            CheckCharacterVoteCount();
+
+            for (int i = 0; i < doctor.Count; ++i) {
+                ((Doctor)doctor[i].character).SetAliveList(GetAliveCharacter());
+            }
+
+            NextTime();
+        }
+    }
+
+    void CheckCharacterVoteCount()
+    {
+        int max = -1;
+        CharacterBehaviour c = null;
+        for (int i = 0; i < characterList.Count; ++i)
+        {
+            int count = characterList[i].character.voteCount;
+            if (max < count)
+            {
+                max = characterList[i].character.voteCount;
+                c = characterList[i].character;
+            }
+        }
+
+        print("vote Kill : " + c.info.name);
+        c.Kill();
 
     }
 
@@ -259,20 +311,30 @@ public class GameManager : Singleton<GameManager>
                 characterList.Add(c.gameObject.AddComponent<PlayerAI>());
                 //player = c.gameObject.AddComponent<PlayerController>();
             }
-            else {
-               characterList.Add(c.gameObject.AddComponent<PlayerAI>());
+            else
+            {
+                characterList.Add(c.gameObject.AddComponent<PlayerAI>());
             }
         }
 
     }
 
-    public CharacterBehaviour FindCharacterWithName(string _name) {
+    public CharacterBehaviour FindCharacterWithName(string _name)
+    {
         return characterList.Find(item => item.character.info.name == _name).character;
     }
 
     public CharacterBehaviour FindCharacterWithFakeName(string _name)
     {
-        return characterList.Find(item => item.character.openInfo.name == _name).character;
+        PlayerController p = characterList.Find(item => item.character.openInfo.name == _name);
+
+        if (p != null && p.character != null)
+
+            return characterList.Find(item => item.character.openInfo.name == _name).character;
+        else
+            return null;
+
+
     }
 
     public List<string> GetCharacterNames(bool _isContainDie = false)
@@ -328,6 +390,19 @@ public class GameManager : Singleton<GameManager>
         {
             if (characterList[i].character.job == _job)
                 resultList.Add(characterList[i]);
+        }
+
+        return resultList;
+    }
+
+    public List<CharacterBehaviour> GetAliveCharacter()
+    {
+        List<CharacterBehaviour> resultList = new List<CharacterBehaviour>();
+
+        for (int i = 0; i < characterList.Count; ++i)
+        {
+            if (!characterList[i].character.isDie)
+                resultList.Add(characterList[i].character);
         }
 
         return resultList;

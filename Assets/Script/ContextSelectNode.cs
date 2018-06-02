@@ -21,8 +21,12 @@ public class ContextSelectNode
 
         switch (_select)
         {
-            case ContextSelectCategory.Name:
-                return GameManager.Instance.GetCharacterNames();
+            case ContextSelectCategory.AllName:
+                return CharacterDB.Instance.nameList;
+            case ContextSelectCategory.AllCharactersName:
+                return GameManager.Instance.GetCharacterFakeNames();
+            case ContextSelectCategory.AliveName:
+                return GameManager.Instance.GetCharacterFakeNames(true);
             case ContextSelectCategory.Age:
                 for (int i = -2; i < 3; ++i)
                 {
@@ -30,7 +34,7 @@ public class ContextSelectNode
                 }
                 return selectContextList;
             case ContextSelectCategory.Job:
-                for (int i = 0; i < 4; ++i)
+                for (int i = 1; i < 4; ++i)
                 {
                     selectContextList.Add(CharacterInfo.ParseJobToName((CharacterJob)i));
                 }

@@ -146,7 +146,7 @@ public class UIContextDialog : MonoBehaviour
 
             switch (selectNode.selectCategory)
             {
-                case ContextSelectCategory.Name:
+                case ContextSelectCategory.AllName:
                     selectStr = selectNode.contexts[selector[i]];
                     totalContext.target = GameManager.Instance.FindCharacterWithFakeName(selectStr);
                     break;

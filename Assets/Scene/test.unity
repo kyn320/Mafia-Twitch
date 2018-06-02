@@ -169,6 +169,7 @@ MonoBehaviour:
   policeCount: 0
   doctorCount: 0
   timer: 0
+  voteCount: 0
   nightWorkCount: 0
   maxNightWorkCount: 0
 --- !u!1001 &145796555
@@ -1087,7 +1088,7 @@ MonoBehaviour:
     - "\uC81C \uB098\uC774\uB294"
     - "\uC138 \uC785\uB2C8\uB2E4."
     selectContexts:
-    - selectCategory: 2
+    - selectCategory: 4
       contexts: []
     - selectCategory: 0
       contexts: []
@@ -1105,9 +1106,9 @@ MonoBehaviour:
     - "(\uC774)\uAC00"
     - "\uC778 \uAC83\uAC19\uC2B5\uB2C8\uB2E4."
     selectContexts:
-    - selectCategory: 1
-      contexts: []
     - selectCategory: 3
+      contexts: []
+    - selectCategory: 5
       contexts: []
     - selectCategory: 0
       contexts: []
@@ -1117,9 +1118,9 @@ MonoBehaviour:
     - "(\uC774)\uAC00"
     - "\uC778 \uAC83 \uAC19\uC740\uB370?"
     selectContexts:
-    - selectCategory: 1
-      contexts: []
     - selectCategory: 3
+      contexts: []
+    - selectCategory: 5
       contexts: []
     - selectCategory: 0
       contexts: []
@@ -1129,9 +1130,9 @@ MonoBehaviour:
     - "(\uC774)\uAC00"
     - "\uC778\uB370?"
     selectContexts:
-    - selectCategory: 1
-      contexts: []
     - selectCategory: 3
+      contexts: []
+    - selectCategory: 5
       contexts: []
     - selectCategory: 0
       contexts: []

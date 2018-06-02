@@ -17,7 +17,7 @@ public class Mafia : CharacterBehaviour
         List<string> list = GameManager.Instance.GetCharacterNames();
         string target = list[Random.Range(0, list.Count)];
         print("mafia kill : " + target);
-        GameManager.Instance.FindCharacterWithName(target).isDie = true;
+        GameManager.Instance.FindCharacterWithName(target).Kill();
         base.JobWork();
     }
 

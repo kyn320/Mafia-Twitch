@@ -73,14 +73,31 @@ public class PlayerAI : PlayerController
         guessJob = _job;
     }
 
-    public void Vote()
+    public override void Vote()
     {
+        List<ThinkCharacter> thinks = new List<ThinkCharacter>();
+        for (int i = 0; i < thinkCharacters.Count; ++i)
+        {
+            if (thinkCharacters[i].job == CharacterJob.Mafia && !thinkCharacters[i].target.isDie)
+            {
+                thinks.Add(thinkCharacters[i]);
+            }
+        }
 
+        if (thinks.Count < 1)
+            thinkCharacters[Random.Range(0, thinkCharacters.Count)].target.AddVote();
+        else
+            thinks[Random.Range(0, thinks.Count)].target.AddVote();
     }
 
     public override void AddTopic()
     {
-        character.sayTopic = ContextNodeDB.Instance.GetRandomContext(ContextCategory.ThinkNameAndJob);
+        character.sayTopic = ContextNodeDB.Instance.GetRandomContext(ContextCategory.ThinkNameAndJob, character.openInfo);
+        TalkManager.Instance.talkTopicQueue.Add(character);
+    }
+
+    public void AddTopic(Context _context) {
+        character.sayTopic = _context;
         TalkManager.Instance.talkTopicQueue.Add(character);
     }
 
@@ -93,7 +110,7 @@ public class PlayerAI : PlayerController
 
     public override void AddAnswer()
     {
-        character.sayAnswer = ContextNodeDB.Instance.GetRandomContext(ContextCategory.Answer);
+        character.sayAnswer = ContextNodeDB.Instance.GetRandomContext(ContextCategory.Answer, character.openInfo);
         TalkManager.Instance.talkAnswerQueue.Add(character);
     }
 
@@ -175,6 +192,19 @@ public class PlayerAI : PlayerController
         }
     }
 
+    public void ThinkPoliceWork(Context _context)
+    {
+        ThinkCharacter target = null;
+
+        if (_context.target != null)
+            target = FindCharacter(_context.target);
+
+        target.job = _context.targetjob;
+        target.info = _context.target.info;
+
+        AddTopic(_context);
+    }
+
     public void ThinkNew(Context _context, ThinkCharacter _sayCharacter = null, ThinkCharacter _target = null)
     {
 
@@ -224,7 +254,6 @@ public class PlayerAI : PlayerController
                 {
                     ++_sayCharacter.info.kind.trueth;
                     --_sayCharacter.info.kind.lie;
-
                     _target.job = _context.targetjob;
                 }
                 else
@@ -243,6 +272,12 @@ public class PlayerAI : PlayerController
             case ContextCategory.ShareNameAndJobAction:
                 break;
             case ContextCategory.ShareNameAndJob:
+                if (_sayCharacter.target != character)
+                {
+                    ++_sayCharacter.info.kind.trueth;
+                    _sayCharacter.job = CharacterJob.Police;
+                }
+                _target.job = _context.targetjob;
                 break;
         }
     }
